@@ -45,11 +45,6 @@ for element in elements:
 #quitting the browser
 dr.quit()
 
-
-
-time_stamp = datetime.datetime.now()
-#print(datetimenow)
-
 raw_info=info_raw["0"]
 raw_info2 = raw_info.split('\n\n')
 kenyan_stocks=raw_info2[1:54]
@@ -62,13 +57,11 @@ for stock in kenyan_stocks:
     p_list2=p_list.split('\t')
     stock_info = test_list[0:2]+[p_list2[1]]
     kenyan_stocks_dict[stock_info[1]]=stock_info[2]
-kenyan_stocks_dict2={}
-kenyan_stocks_dict2[str(time_stamp)]=kenyan_stocks_dict
-#print(kenyan_stocks_dict2)
+#print(kenyan_stocks_dict)
 
 def final_data():
     return kenyan_stocks_dict2
-time_stamp=time.asctime()
+time_stamp=str(time.asctime())
 Final_data={}  
 Final_data[time_stamp]=final_data()
 filename = '3hrly_kenyanstocks_prices.json'
@@ -79,7 +72,7 @@ if os.stat(filename).st_size == 0:
         json.dump(Final_data, file)
 else:
     with open(filename, "r+") as file:
-        data = json.loads(file)
+        data = json.load(file)
         data[time_stamp]=entry
         file.seek(0)
         json.dump(data, file)
