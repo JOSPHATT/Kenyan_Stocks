@@ -1,3 +1,7 @@
+import time
+import json
+import datetime
+import os
 from selenium import webdriver
 
 from selenium.webdriver.common.by import By
@@ -42,7 +46,7 @@ for element in elements:
 dr.quit()
 
 
-import datetime
+
 time_stamp = datetime.datetime.now()
 #print(datetimenow)
 
@@ -60,4 +64,22 @@ for stock in kenyan_stocks:
     kenyan_stocks_dict[stock_info[1]]=stock_info[2]
 kenyan_stocks_dict2={}
 kenyan_stocks_dict2[str(time_stamp)]=kenyan_stocks_dict
-print(kenyan_stocks_dict2)
+#print(kenyan_stocks_dict2)
+
+def final_data():
+    return kenyan_stocks_dict2
+time_stamp=time.asctime()
+Final_data={}  
+Final_data[time_stamp]=final_data()
+filename = '3hrly_kenyanstocks_prices.json'
+entry = final_data()
+
+if os.stat(filename).st_size == 0:
+    with open(filename, "w") as file:
+        json.dump(Final_data, file)
+else:
+    with open(filename, "r+") as file:
+        data = json.load(file)
+        data[time_stamp]=entry
+        file.seek(0)
+        json.dump(data, file)
