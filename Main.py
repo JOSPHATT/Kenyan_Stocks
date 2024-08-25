@@ -79,7 +79,7 @@ if os.stat(filename).st_size == 0:
         json.dump(Final_data, file)
 else:
     with open(filename, "r+") as file:
-        data = json.load(file)
+        data = json.loads(file)
         data[time_stamp]=entry
         file.seek(0)
         json.dump(data, file)
