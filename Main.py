@@ -60,7 +60,7 @@ for stock in kenyan_stocks:
 #print(kenyan_stocks_dict)
 
 def final_data():
-    return kenyan_stocks_dict2
+    return kenyan_stocks_dict
 time_stamp=str(time.asctime())
 Final_data={}  
 Final_data[time_stamp]=final_data()
