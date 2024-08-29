@@ -59,8 +59,6 @@ for stock in kenyan_stocks:
     p_list2=p_list.split('\t')
     stock_info = test_list[0:2]+[p_list2[1]]
     kenyan_stocks_dict[stock_info[1]]=stock_info[2]
-#print(kenyan_stocks_dict)
-
 def final_data():
     return kenyan_stocks_dict
 time_stamp=str(time.asctime())
@@ -70,3 +68,80 @@ filename = '3hrly_kenyanstocks_prices.json'
 
 with open(filename, 'w') as outfile:
     json.dump(Final_data, outfile)
+#########################################################################################################################
+##BUSINESS NEWS FEEDS FUNCTION
+
+# prompt1: code to extract news from  https://live.mystocks.co.ke/news.php
+url1 = 'https://live.mystocks.co.ke/news.php'
+response1 = requests.get(url1)
+
+soup1 = BeautifulSoup(response1.content, 'html.parser')
+news_articles = soup1.find_all('a', target="_blank")
+news_publisher = soup1.find_all('i', {'class':"nPubl"})
+news_date = soup1.find_all('i', {'class':"nDate"})
+
+headline = []
+publisher = []
+dates = []
+for article in news_articles:
+    headline.append(article.text)
+for pub in news_publisher:
+    publisher.append(pub.text)
+for dat in news_date:
+    dates.append(dat.text)
+#print(headline)
+#print(publisher)
+#print(dates)
+kenyan_stocks_news = list(zip(headline,zip(publisher,dates)))
+
+# prompt2: code to extract news from  'https://www.theeastafrican.co.ke/tea/business'
+url2 = 'https://www.theeastafrican.co.ke/tea/business'
+response2 = requests.get(url2)
+soup2 = BeautifulSoup(response2.content, 'html.parser')
+east_african_news_articles =soup2.find_all('div', {'class':"five-eight column"})
+east_african_news_articles_others = soup2.find_all('div', {'class':"sidebar-item"})
+the_east_african_news_articles=east_african_news_articles_others+east_african_news_articles
+the_east_african_news=[]
+for article in the_east_african_news_articles:
+    the_east_african_news.append(article.text)
+
+# prompt3: code to extract news from  https://kenyanwallstreet.com/
+url3 = 'https://kenyanwallstreet.com/'
+response3 = requests.get(url3)
+soup3 = BeautifulSoup(response3.content, 'html.parser')
+kenyan_wall_street_news_articles =soup3.find_all('div', {'class':"jeg_block_container"})
+kenyan_wall_street_news_articles_list=[]
+for article in kenyan_wall_street_news_articles:
+  kenyan_wall_street_news_articles_list.append(article.text)
+kenyan_wall_street_news=kenyan_wall_street_news_articles_list
+
+# prompt4: code to extract news from  https://www.businessdailyafrica.com/
+url4 = 'https://www.businessdailyafrica.com/'
+response4 = requests.get(url4)
+
+soup4 = BeautifulSoup(response4.content, 'html.parser')
+business_daily_news_articles =soup4.find_all('div', {'class':"grid-container-bd"})
+business_daily_news=[]
+for article in business_daily_news_articles:
+  s=article.text
+  s1= s.split('\n')
+  for i in s1:
+    if i=='':
+      s1.remove(i)
+    else:
+      business_daily_news.append(i)
+
+Collected_Business_News=kenyan_stocks_news+business_daily_news+the_east_african_news+kenyan_wall_street_news
+#print(Collected_Business_News)
+def news_feed():
+    return Collected_Business_News
+News_feeds={}  
+News_feeds[time_stamp]=news_feed()
+filename2 = 'Kenyan_stocks_news_feed.json'
+
+with open(filename2, 'w') as outfile2:
+    json.dump(News_feeds, outfile2)
+#####################################################################################################################################
+
+
+
