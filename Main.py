@@ -66,7 +66,7 @@ Final_data={}
 Final_data[time_stamp]=final_data()
 filename = '3hrly_kenyanstocks_prices.json'
 
-with open(filename, 'w') as outfile:
+with open(filename, 'a') as outfile:
     json.dump(Final_data, outfile)
 #########################################################################################################################
 ##BUSINESS NEWS FEEDS FUNCTION
@@ -139,7 +139,7 @@ News_feeds={}
 News_feeds[time_stamp]=news_feed()
 filename2 = 'Kenyan_stocks_news_feed.json'
 
-with open(filename2, 'w') as outfile2:
+with open(filename2, 'a') as outfile2:
     json.dump(News_feeds, outfile2)
 #####################################################################################################################################
 
