@@ -3,6 +3,8 @@ import json
 import datetime
 import os
 from selenium import webdriver
+import requests
+from bs4 import BeautifulSoup
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -71,9 +73,6 @@ print(Final_data)
 ##BUSINESS NEWS FEEDS FUNCTION
 
 # prompt1: code to extract news from  https://live.mystocks.co.ke/news.php
-import requests
-from bs4 import BeautifulSoup
-
 url1 = 'https://live.mystocks.co.ke/news.php'
 response1 = requests.get(url1)
 
