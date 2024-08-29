@@ -68,7 +68,7 @@ Final_data={}
 Final_data[time_stamp]=final_data()
 #filename = '3hrly_kenyanstocks_prices.json'
 #entry = final_data()
-print(Final_data)
+#print(Final_data)
 #########################################################################################################################
 ##BUSINESS NEWS FEEDS FUNCTION
 
@@ -133,5 +133,5 @@ for article in business_daily_news_articles:
       business_daily_news.append(i)
 
 Collected_Business_News=kenyan_stocks_news+business_daily_news+the_east_african_news+kenyan_wall_street_news
-print(Collected_Business_News)
+#print(Collected_Business_News)
 #####################################################################################################################################
