@@ -70,14 +70,12 @@ def final_data():
     Final_data[time_stamp]=kenyan_stocks_dict
     json_data = json.dumps(Final_data, indent=4)
     return json_data
-print(final_data())    
 
-
-#filename = '3hrly_kenyanstocks_prices.json'
+filename = '3hrly_kenyanstocks_prices.json'
 
 # Append JSON data to file
-#with open(filename, "a") as f:
- #   f.write(json_data + "\n")  # Append each JSON object on a new line
+with open(filename, "a") as f:
+    f.write(final_data() + "\n")  # Append each JSON object on a new line
     
 ########OLD CODE
 ####with open(filename, 'a') as outfile:
