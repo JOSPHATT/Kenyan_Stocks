@@ -1,4 +1,4 @@
-#################CHAINGING OUTPUT FROM DIC TO JSON FORMAT AND APPENDING TO JSON"###############################
+#################CHANGING OUTPUT FROM DIC TO JSON FORMAT AND APPENDING TO JSON"###############################
 import time
 import json
 import datetime
