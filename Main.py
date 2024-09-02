@@ -1,4 +1,4 @@
-#################CHAINGING OUTPUT FROM DIC TO JSON FORMAT AND APPENDING TO JSON"###############################
+#################CHANGING OUTPUT FROM DIC TO JSON FORMAT AND APPENDING TO JSON"###############################
 import time
 import json
 import datetime
@@ -60,15 +60,26 @@ for stock in kenyan_stocks:
     stock_info = test_list[0:2]+[p_list2[1]]+[p_list2[2]]
     #print(stock_info)
     kenyan_stocks_dict[stock_info[1]]=[stock_info[2],stock_info[3]]
-def final_data():
-    return kenyan_stocks_dict
+
 time_stamp=str(time.asctime())
 Final_data={}  
-Final_data[time_stamp]=final_data()
+
+# Convert dictionary to JSON
+def final_data():
+    global kenyan_stocks_dict
+    Final_data[time_stamp]=kenyan_stocks_dict
+    json_data = json.dumps(Final_data, indent=4)
+    return json_data
+
 filename = '3hrly_kenyanstocks_prices.json'
 
-with open(filename, 'a') as outfile:
-    json.dump(Final_data, outfile)
+# Append JSON data to file
+with open(filename, "a") as f:
+    f.write(final_data() + "\n")  # Append each JSON object on a new line
+    
+########OLD CODE
+####with open(filename, 'a') as outfile:
+####    json.dump(Final_data, outfile)
 #########################################################################################################################
 ##BUSINESS NEWS FEEDS FUNCTION
 
