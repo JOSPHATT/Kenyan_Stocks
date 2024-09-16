@@ -57,9 +57,9 @@ for stock in kenyan_stocks:
     test_list = [i for i in k_stock if i]
     p_list=test_list[3]
     p_list2=p_list.split('\t')
-    stock_info = test_list[0:2]+[p_list2[1]]+[p_list2[2]]
+    stock_info = test_list[0:2]+[p_list2[1]]
     #print(stock_info)
-    kenyan_stocks_dict[stock_info[1]]=[stock_info[2],stock_info[3]]
+    kenyan_stocks_dict[stock_info[1]]=stock_info[2]
 
 time_stamp=str(time.asctime())
 Final_data={}  
