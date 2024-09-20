@@ -96,7 +96,7 @@ def write_json():
 
 def append_json(new_data, filename):
   global new_stock_data
-  with open(filename,'r+') as file:
+  with open(filename,'a') as file:
           # First we load existing data into a dict.
     file_data = json.load(file)
         # Join new_data with file_data inside emp_details
@@ -116,15 +116,14 @@ try:
     file_size = os.path.getsize(file_path)
 
     # if file size is 0, it is empty
-    if (file_size > 0):
-        print('file is not empty, APPENDING DATA........')
-        append_json(new_stock_data,filename)
-      
-    else:
+    if (file_size == 0):
         print('JSON file is empty, WRITING FIRST DATA......')
         write_json(new_stock_data,filename)
-    # if file size is not 0, it is not empty
-  
+            
+    else:
+          # if file size is not 0, it is not empty
+        print('file is not empty, APPENDING DATA........')
+        append_json(new_stock_data,filename)
 
 # if file does not exist, then exception occurs
 except FileNotFoundError as e:
