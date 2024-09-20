@@ -62,24 +62,77 @@ for stock in kenyan_stocks:
     kenyan_stocks_dict[stock_info[1]]=stock_info[2]
 
 time_stamp=str(time.asctime())
-Final_data={}  
+Final_data={} 
+All_Kenya_stock_prices={}
 
-# Convert dictionary to JSON
+
+# CHANGE 'kenyan_stocks_dict' by; ADD TIME/DATE , REMOVE 'KES' AND MAKE PRICES A FLOAT VARIABLE IN THE NESTED NEW DICT
 def final_data():
     global kenyan_stocks_dict
+    global time_stamp
+    global Final_data
     Final_data[time_stamp]=kenyan_stocks_dict
-    json_data = json.dumps(Final_data, indent=4)
-    return json_data
+    #json_data = json.dumps(Final_data, indent=4)
+    for key, value in Final_data.items():
+      time_stamp=key
+      stock_data={}
+      for k, v in value.items():
+        stock_names=k
+        price=v[0]
+        price = float(price.split()[0])
+        stock_data[stock_names]=float(price)
+    All_Kenya_stock_prices[time_stamp]=stock_data
+    return All_Kenya_stock_prices
 
 filename = '3hrly_kenyanstocks_prices.json'
+new_stock_data = final_data()
 
-# Append JSON data to file
-with open(filename, "a") as f:
-    f.write(final_data() + "\n")  # Append each JSON object on a new line
-    
-########OLD CODE
-####with open(filename, 'a') as outfile:
-####    json.dump(Final_data, outfile)
+# function to add to JSON
+def write_json():
+  global new_stock_data
+  # Data to be written
+  with open(filename, "w") as outfile:
+    json.dump(new_stock_data, outfile)
+
+def append_json(new_data, filename):
+  global new_stock_data
+  with open(filename,'r+') as file:
+          # First we load existing data into a dict.
+    file_data = json.load(file)
+        # Join new_data with file_data inside emp_details
+    file_data.update(new_data)
+        # Sets file's current position at offset.
+    file.seek(0)
+        # convert back to json.
+    json.dump(file_data, file, indent = 4)
+
+
+###APPENDING OR INITIAliZING NEW FILE AND INITIAL DATA ENTRY INTO JSON FILE
+# file_path to check whether it is empty
+file_path = '3hrly_kenyanstocks_prices.json'
+#checking whether file is empty
+try:
+    # get the size of file
+    file_size = os.path.getsize(file_path)
+
+    # if file size is 0, it is empty
+    if (file_size == 0):
+        print('JSON file is empty, WRITING FIRST DATA......')
+        write_json(new_stock_data,filename)
+            
+    else:
+          # if file size is not 0, it is not empty
+        print('file is not empty, APPENDING DATA........')
+        append_json(new_stock_data,filename)
+
+# if file does not exist, then exception occurs
+except FileNotFoundError as e:
+    print('JSON File NOT found, CREATING NEW JSON FILE')
+    f = open("3hrly_kenyanstocks_prices.json", "w")
+    f.write(json.dumps(new_stock_data))
+    f.close()
+
+"""
 #########################################################################################################################
 ##BUSINESS NEWS FEEDS FUNCTION
 
@@ -153,6 +206,7 @@ filename2 = 'Kenyan_stocks_news_feed.json'
 
 with open(filename2, 'a') as outfile2:
     json.dump(News_feeds, outfile2)
+"""
 #####################################################################################################################################
 
 
