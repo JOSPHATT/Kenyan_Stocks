@@ -62,7 +62,8 @@ for stock in kenyan_stocks:
     kenyan_stocks_dict[stock_info[1]]=stock_info[2]
 
 time_stamp=str(time.asctime())
-Final_data={}  
+Final_data={} 
+All_Kenya_stock_prices={}
 
 
 # CHANGE 'kenyan_stocks_dict' by; ADD TIME/DATE , REMOVE 'KES' AND MAKE PRICES A FLOAT VARIABLE IN THE NESTED NEW DICT
