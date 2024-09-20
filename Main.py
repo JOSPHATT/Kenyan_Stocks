@@ -109,7 +109,7 @@ def append_json(new_data, filename):
 
 ###APPENDING OR INITIAliZING NEW FILE AND INITIAL DATA ENTRY INTO JSON FILE
 # file_path to check whether it is empty
-file_path = '/refs/heads/Kenyan_Stocks3/3hrly_kenyanstocks_prices.json'
+file_path = '3hrly_kenyanstocks_prices.json'
 #checking whether file is empty
 try:
     # get the size of file
