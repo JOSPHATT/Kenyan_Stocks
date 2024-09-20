@@ -96,7 +96,7 @@ def write_json():
 
 def append_json(new_data, filename):
   global new_stock_data
-  with open(filename,'a') as file:
+  with open(filename,'r+') as file:
           # First we load existing data into a dict.
     file_data = json.load(file)
         # Join new_data with file_data inside emp_details
