@@ -113,23 +113,25 @@ file_path = '/refs/heads/Kenyan_Stocks3/3hrly_kenyanstocks_prices.json'
 #checking whether file is empty
 try:
     # get the size of file
-  file_size = os.path.getsize(file_path)
+    file_size = os.path.getsize(file_path)
 
     # if file size is 0, it is empty
-  if (file_size == 0):
-    print('JSON file is empty, WRITING FIRST DATA......')
-    write_json(new_stock_data,filename)
+    if (file_size > 0):
+        print('file is not empty, APPENDING DATA........')
+        append_json(new_stock_data,filename)
+      
+    else:
+        print('JSON file is empty, WRITING FIRST DATA......')
+        write_json(new_stock_data,filename)
     # if file size is not 0, it is not empty
-  else:
-    print('file is not empty, APPENDING DATA........')
-    append_json(new_stock_data,filename)
+  
 
 # if file does not exist, then exception occurs
 except FileNotFoundError as e:
-  print('JSON File NOT found, CREATING NEW JSON FILE')
-  f = open("3hrly_kenyanstocks_prices.json", "w")
-  f.write(json.dumps(new_stock_data))
-  f.close()
+    print('JSON File NOT found, CREATING NEW JSON FILE')
+    f = open("3hrly_kenyanstocks_prices.json", "w")
+    f.write(json.dumps(new_stock_data))
+    f.close()
 
 """
 #########################################################################################################################
