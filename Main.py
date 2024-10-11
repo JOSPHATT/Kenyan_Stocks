@@ -201,7 +201,6 @@ filename2 = 'Kenyan_stocks_news_feed.json'
 
 with open(filename2, 'a') as outfile2:
     json.dump(News_feeds, outfile2)
-"""
 #####################################################################################################################################
 
 
