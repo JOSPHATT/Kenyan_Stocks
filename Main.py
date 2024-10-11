@@ -71,19 +71,15 @@ def final_data():
     global kenyan_stocks_dict
     global time_stamp
     global Final_data
+    for key, value in kenyan_stocks_dict.items():
+    # Remove 'KES' and convert to float
+        price = float(value.split()[0])  
+    # Update the dictionary with the new value
+        kenyan_stocks_dict[key] = price 
     Final_data[time_stamp]=kenyan_stocks_dict
-    #json_data = json.dumps(Final_data, indent=4)
-    for key, value in Final_data.items():
-      time_stamp=key
-      stock_data={}
-      for k, v in value.items():
-        stock_names=k
-        price=v[0]
-        price = float(price.split()[0])
-        stock_data[stock_names]=float(price)
-    All_Kenya_stock_prices[time_stamp]=stock_data
-    return All_Kenya_stock_prices
-
+  
+    return Final_data
+    
 filename = '3hrly_kenyanstocks_prices.json'
 new_stock_data = final_data()
 
@@ -132,7 +128,6 @@ except FileNotFoundError as e:
     f.write(json.dumps(new_stock_data))
     f.close()
 
-"""
 #########################################################################################################################
 ##BUSINESS NEWS FEEDS FUNCTION
 
